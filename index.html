@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GDPR Widget Demo</title>
+    <style>
+        body { font-family: sans-serif; padding: 50px; text-align: center; }
+        .box { border: 2px dashed #ccc; padding: 20px; margin: 20px auto; max-width: 600px; }
+    </style>
+    
+    <script>
+        window.GDPR_CONFIG = {
+            logo: 'https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png',
+            theme: 1,
+            validityHours: 24
+        };
+    </script>
+    
+    <script src="gdpr-widget.js" defer></script>
+</head>
+<body>
+    <h1>My GDPR Widget Demo</h1>
+    <div class="box">
+        <p>The cookie banner should appear at the bottom right.</p>
+        <p>👇</p>
+        <button onclick="document.cookie='gdpr_consent_timestamp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; location.reload();">
+            Reset / Test Again
+        </button>
+    </div>
+</body>
+</html>
