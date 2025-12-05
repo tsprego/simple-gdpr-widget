@@ -1,0 +1,24 @@
+SMALL BUSINESS LICENSE (The "License")
+
+Copyright (c) 2025 TSP-ReGo / simple-gdpr-widget
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, SUBJECT TO THE FOLLOWING CONDITIONS:
+
+1. COMMERCIAL USE RESTRICTION: This Software may only be used free of charge by entities (companies, non-profits, or individuals) that have FEWER THAN 100 EMPLOYEES.
+2. LARGE ENTERPRISE RESTRICTION: Entities with 100 or more employees are not permitted to use this Software without a separate commercial license agreement from the Copyright Holder.
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILI
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+TY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
