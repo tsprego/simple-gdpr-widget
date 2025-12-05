@@ -15,3 +15,4 @@ Most cookie banners are ugly, expensive, or require complex backend servers. Thi
 * **10 Built-in Themes:** Includes Dark Mode, Brutalist, Minimalist, and more to match your brand.
 * **Smart Memory:** Remembers user consent for 24 hours (configurable).
 * **Small Business Friendly:** Completely free for companies with under 100 employees.
+
