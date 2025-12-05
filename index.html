@@ -2,9 +2,42 @@
 <html>
 <head>
     <title>GDPR Widget Demo</title>
-    <style>
-        body { font-family: sans-serif; padding: 50px; text-align: center; }
-        .box { border: 2px dashed #ccc; padding: 20px; margin: 20px auto; max-width: 600px; }
+   <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            text-align: center;
+            padding: 50px 20px;
+        }
+        .container {
+            background: white;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        h1 { margin-top: 0; color: #2c3e50; }
+        p { line-height: 1.6; color: #666; }
+        
+        /* --- NEW: STYLING FOR THE DROPDOWN MENU --- */
+        .controls {
+            margin: 30px 0;
+            padding: 20px;
+            background: #eef2f5;
+            border-radius: 8px;
+            border: 1px dashed #cbd5e0;
+        }
+        select {
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 70%;
+            cursor: pointer;
+        }
+        /* ------------------------------------------ */
     </style>
     
     <script>
@@ -18,13 +51,59 @@
     <script src="gdpr-widget.js" defer></script>
 </head>
 <body>
-    <h1>My GDPR Widget Demo</h1>
-    <div class="box">
-        <p>The cookie banner should appear at the bottom right.</p>
-        <p>👇</p>
-        <button onclick="document.cookie='gdpr_consent_timestamp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'; location.reload();">
-            Reset / Test Again
-        </button>
+
+    <div class="container">
+        <h1>🍪 GDPR Widget Demo</h1>
+        <p>This is a live preview of the open-source GDPR widget.</p>
+        <p>The banner should be visible at the bottom right.</p>
+
+        <div class="controls">
+            <h3>🎨 Test Different Themes</h3>
+            <p>Select a style to instantly update the banner:</p>
+            
+            <select id="theme-selector" onchange="changeTheme(this.value)">
+                <option value="1">1. Default Light</option>
+                <option value="2">2. Dark Mode</option>
+                <option value="3">3. Midnight Red</option>
+                <option value="4">4. Brutalist (B&W)</option>
+                <option value="5">5. Blue Breeze</option>
+                <option value="6">6. Orange Sunset</option>
+                <option value="7">7. Forest Green</option>
+                <option value="8">8. Royal Purple</option>
+                <option value="9">9. Hacker (Matrix)</option>
+                <option value="10">10. Minimalist Grey</option>
+            </select>
+        </div>
+        <p style="font-size: 12px; color: #999;">
+            *Note: Changing the theme here resets your consent cookie so you can see the banner again.
+        </p>
     </div>
-</body>
+
+    <script>
+        // Load the widget initially
+        loadWidget();
+
+        function loadWidget() {
+            const script = document.createElement('script');
+            // We add a random number (?t=...) to force the browser to reload the script completely
+            script.src = 'gdpr-widget.js?t=' + Date.now(); 
+            document.body.appendChild(script);
+        }
+
+        function changeTheme(newThemeID) {
+            // 1. Update the settings
+            window.GDPR_CONFIG.theme = parseInt(newThemeID);
+
+            // 2. Delete the old banner from the screen
+            const oldBox = document.getElementById('gdpr-box');
+            if(oldBox) oldBox.remove();
+
+            // 3. Delete the cookie (So the widget thinks it's a new visitor)
+            document.cookie = "gdpr_consent_timestamp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+            // 4. Re-run the script
+            loadWidget();
+        }
+    </script>
+    </body>
 </html>
