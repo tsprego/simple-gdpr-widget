@@ -1,0 +1,54 @@
+# Simple install guide  GDPR & Privacy Widget
+### A free, lightweight, and robust cookie consent tool for small businesses.
+
+![License](https://img.shields.io/badge/license-Free_for_<100_Employees-green)
+
+This tool adds a fully compliant GDPR cookie banner to your website. It automatically detects cookies running on your site and handles user consent.
+
+**Free for:** Startups, personal blogs, and small businesses (under 100 employees).
+**Enterprises:** Please contact us for a commercial license.
+
+---
+
+## 🚀 How to Install (30 Seconds)
+
+You do not need to download anything. Just copy and paste the code below into your website.
+
+### Step 1: Copy this code
+Place this code into the `<head>` section of your website (or near the bottom of your `<body>`).
+
+```html
+<script>
+    window.GDPR_CONFIG = {
+        // 1. Put your logo URL here (optional)
+        logo: '[https://example.com/your-logo.png](https://example.com/your-logo.png)', 
+        
+        // 2. Choose a theme (1-10)
+        // 1:Light, 2:Dark, 3:Red, 4:Brutalist, 5:Blue, 6:Orange, 7:Green, 8:Purple, 9:Matrix, 10:Minimal
+        theme: 1, 
+        
+        // 3. Link to your privacy policy
+        privacyPolicyUrl: '/privacy-policy',
+        
+        // 4. How many hours before asking again?
+        validityHours: 24 
+    };
+</script>
+
+<script src="https://tsprego.github.io/simple-gdpr-widget/gdpr-widget.js" defer></script>
+
+# Simple test that it work ( if you do not have other third-party cookies runing) 
+# Copy this code: Add this before your GDPR widget script in your HTML file.
+# warning remember to remove it before you deploy it in production 
+<script>
+    // 1. Simulate Google Analytics (_ga)
+    document.cookie = "_ga=GA1.2.1029384.555; path=/";
+    
+    // 2. Simulate Facebook Pixel (_fbp)
+    document.cookie = "_fbp=fb.1.1690000000000; path=/";
+    
+    // 3. Simulate a Marketing Tracker
+    document.cookie = "marketing_id=tracked_user_99; path=/";
+</script>
+
+<script src="gdpr-widget.js"></script>
