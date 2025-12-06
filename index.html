@@ -84,26 +84,38 @@
         loadWidget();
 
         function loadWidget() {
+            // STEP 1: Remove the old script tag if it exists
+            // This prevents "variable already declared" errors
+            const oldScript = document.getElementById('gdpr-widget-script');
+            if (oldScript) {
+                oldScript.remove();
+            }
+
+            // STEP 2: Create the new script tag
             const script = document.createElement('script');
-            // We add a random number (?t=...) to force the browser to reload the script completely
+            script.id = 'gdpr-widget-script'; // Give it an ID so we can find it next time
+            // Add a timestamp (?t=...) to force the browser to download the new version
             script.src = 'gdpr-widget.js?t=' + Date.now(); 
+            
+            // STEP 3: Add it to the page
             document.body.appendChild(script);
         }
 
         function changeTheme(newThemeID) {
-            // 1. Update the settings
+            // 1. Update the global config variable
             window.GDPR_CONFIG.theme = parseInt(newThemeID);
 
-            // 2. Delete the old banner from the screen
+            // 2. Remove the old banner visual from the screen
             const oldBox = document.getElementById('gdpr-box');
             if(oldBox) oldBox.remove();
 
-            // 3. Delete the cookie (So the widget thinks it's a new visitor)
+            // 3. Reset the cookie so the widget thinks we are a new user
             document.cookie = "gdpr_consent_timestamp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-            // 4. Re-run the script
+            // 4. Reload the script
             loadWidget();
         }
     </script>
-    </body>
+</body>
 </html>
+   
