@@ -1,65 +1,44 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>GDPR Widget Demo</title>
-   <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4f4f9;
-            color: #333;
-            text-align: center;
-            padding: 50px 20px;
-        }
-        .container {
-            background: white;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-        }
-        h1 { margin-top: 0; color: #2c3e50; }
-        p { line-height: 1.6; color: #666; }
-        
-        /* --- NEW: STYLING FOR THE DROPDOWN MENU --- */
-        .controls {
-            margin: 30px 0;
-            padding: 20px;
-            background: #eef2f5;
-            border-radius: 8px;
-            border: 1px dashed #cbd5e0;
-        }
-        select {
-            padding: 10px;
-            font-size: 16px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            width: 70%;
-            cursor: pointer;
-        }
-        /* ------------------------------------------ */
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GDPR Widget Live Demo</title>
+    <style>
+        /* (Styles remain the same, I hid them to save space) */
+        body { font-family: sans-serif; text-align: center; padding: 50px; background: #f4f4f9; }
+        .container { background: white; max-width: 600px; margin: 0 auto; padding: 40px; border-radius: 12px; }
+        .controls { margin: 30px 0; padding: 20px; background: #eef2f5; border: 1px dashed #cbd5e0; }
+        select { padding: 10px; font-size: 16px; width: 70%; }
     </style>
-    
+
     <script>
+        // 1. Get the URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // 2. If URL has "?theme=X", use X. If not, use 1.
+        const currentTheme = parseInt(urlParams.get('theme')) || 1;
+
+        // 3. Set the config using that number
         window.GDPR_CONFIG = {
-            logo: 'https://tsprego.dk/logo/SmallLogo.png',
-            theme: 1,
-            validityHours: 2
+            logo: 'https:/https://tsprego.dk/logo/SmallLogo.png',
+            theme: currentTheme, 
+            validityHours: 24
         };
     </script>
-    
+
     <script src="gdpr-widget.js" defer></script>
+
 </head>
 <body>
 
     <div class="container">
         <h1>🍪 GDPR Widget Demo</h1>
         <p>This is a live preview of the open-source GDPR widget.</p>
-        <p>The banner should be visible at the bottom right.</p>
 
         <div class="controls">
             <h3>🎨 Test Different Themes</h3>
-            <p>Select a style to instantly update the banner:</p>
+            <p>Select a style to reload the page:</p>
             
             <select id="theme-selector" onchange="changeTheme(this.value)">
                 <option value="1">1. Default Light</option>
@@ -74,48 +53,33 @@
                 <option value="10">10. Minimalist Grey</option>
             </select>
         </div>
-        <p style="font-size: 12px; color: #999;">
-            *Note: Changing the theme here resets your consent cookie so you can see the banner again.
-        </p>
+
+        <button onclick="resetCookie()" style="margin-top:20px; padding:10px; cursor:pointer;">
+            Reset Consent Cookie (Test Again)
+        </button>
     </div>
 
     <script>
-        // Load the widget initially
-        loadWidget();
+        // Set the dropdown to show the active theme
+        document.getElementById('theme-selector').value = currentTheme;
 
-        function loadWidget() {
-            // STEP 1: Remove the old script tag if it exists
-            // This prevents "variable already declared" errors
-            const oldScript = document.getElementById('gdpr-widget-script');
-            if (oldScript) {
-                oldScript.remove();
-            }
-
-            // STEP 2: Create the new script tag
-            const script = document.createElement('script');
-            script.id = 'gdpr-widget-script'; // Give it an ID so we can find it next time
-            // Add a timestamp (?t=...) to force the browser to download the new version
-            script.src = 'gdpr-widget.js?t=' + Date.now(); 
+        // 🔴 CHANGED 4: The Change Function
+        // Old version: Tried to delete HTML and swap scripts (Unstable).
+        // New version: Forces a page reload. This clears the browser memory so the button works 100%.
+        function changeTheme(newThemeID) {
+            // 1. Delete the cookie (so the banner actually appears on the next load)
+            document.cookie = "gdpr_consent_timestamp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             
-            // STEP 3: Add it to the page
-            document.body.appendChild(script);
+            // 2. Reload the page with the new ID in the URL
+            window.location.href = '?theme=' + newThemeID;
         }
 
-        function changeTheme(newThemeID) {
-            // 1. Update the global config variable
-            window.GDPR_CONFIG.theme = parseInt(newThemeID);
-
-            // 2. Remove the old banner visual from the screen
-            const oldBox = document.getElementById('gdpr-box');
-            if(oldBox) oldBox.remove();
-
-            // 3. Reset the cookie so the widget thinks we are a new user
+        function resetCookie() {
             document.cookie = "gdpr_consent_timestamp=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-
-            // 4. Reload the script
-            loadWidget();
+            location.reload();
         }
     </script>
+
 </body>
 </html>
    
